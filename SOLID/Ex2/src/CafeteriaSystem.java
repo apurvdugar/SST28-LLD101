@@ -24,24 +24,25 @@ public class CafeteriaSystem {
     public void checkout(String customerType, List<OrderLine> lines) {
         String invId = "INV-" + (++invoiceSeq);
 
-        double subtotal = calculator.calculateSubtotal(lines, menu);
-        double taxPct = taxPolicy.taxPercent(customerType);
-        double tax = subtotal * (taxPct / 100.0);
+        // double subtotal = calculator.calculateSubtotal(lines, menu);
+        // double taxPct = taxPolicy.taxPercent(customerType);
+        // double tax = subtotal * (taxPct / 100.0);
 
-        double discount = discountPolicy.discountAmount(customerType, subtotal, lines.size());
+        // double discount = discountPolicy.discountAmount(customerType, subtotal, lines.size());
 
-        double total = subtotal + tax - discount;
+        // double total = subtotal + tax - discount;
 
-        List<InvoiceLine> invoiceLines = new ArrayList<>();
+        // List<InvoiceLine> invoiceLines = new ArrayList<>();
 
-        for (OrderLine l : lines) {
-            MenuItem item = menu.get(l.itemId);
-            double lineTotal = item.price * l.qty;
-            invoiceLines.add(new InvoiceLine(item.name, l.qty, lineTotal));
-        }
+        // for (OrderLine l : lines) {
+        //     MenuItem item = menu.get(l.itemId);
+        //     double lineTotal = item.price * l.qty;
+        //     invoiceLines.add(new InvoiceLine(item.name, l.qty, lineTotal));
+        // }
         
-        Invoice invoice = new Invoice(invId, invoiceLines, subtotal, taxPct, tax, discount, total);
+        // Invoice invoice = new Invoice(invId, invoiceLines, subtotal, taxPct, tax, discount, total);
 
+        Invoice invoice = calculator.calculate(invId, customerType, lines, menu, taxPolicy, discountPolicy);
         String printable = formatter.identityFormat(invoice);
         System.out.print(printable);
 

@@ -1,5 +1,6 @@
 import java.util.*;
 
 interface PricingCalculator {
-    double calculateSubtotal(List<OrderLine> lines, Map<String, MenuItem> menu);
+    Invoice calculate(String invId, String customerType, List<OrderLine> lines, Map<String, MenuItem> menu, TaxPolicy taxPolicy, DiscountPolicy discountPolicy);
+    // double calculateSubtotal(List<OrderLine> lines, Map<String, MenuItem> menu);
 }
