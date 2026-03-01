@@ -8,9 +8,9 @@ public class ClubConsole {
     }
 
     public void run() {
-        ClubAdminTools treasurer = new TreasurerTool(ledger);
-        ClubAdminTools secretary = new SecretaryTool(minutes);
-        ClubAdminTools lead = new EventLeadTool(events);
+        IFinanceTools treasurer = new TreasurerTool(ledger);
+        IMinutesTools secretary = new SecretaryTool(minutes);
+        IEventTools lead = new EventLeadTool(events);
 
         treasurer.addIncome(5000, "sponsor");
         secretary.addMinutes("Meeting at 5pm");
