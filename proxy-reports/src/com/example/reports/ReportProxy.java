@@ -13,6 +13,7 @@ public class ReportProxy implements Report {
     private final String title;
     private final String classification;
     private final AccessControl accessControl = new AccessControl();
+    private RealReport realReport;
 
     public ReportProxy(String reportId, String title, String classification) {
         this.reportId = reportId;
@@ -20,11 +21,24 @@ public class ReportProxy implements Report {
         this.classification = classification;
     }
 
+    private boolean hasAccess(User user) {
+        return accessControl.canAccess(user, classification);
+    }
+
+    private RealReport getReal() {
+        if (realReport == null) {
+            realReport = new RealReport(reportId, title, classification);
+            System.out.println("[proxy] creating RealReport for " + reportId);
+        }
+        return realReport;
+    }
+
     @Override
     public void display(User user) {
-        // Starter placeholder: intentionally incorrect.
-        // Students should remove direct real loading on every call.
-        RealReport report = new RealReport(reportId, title, classification);
-        report.display(user);
+        if (!hasAccess(user)) {
+            System.out.println("ACCESS DENIED for user " + user.getName() + " to report " + reportId);
+            return;
+        }
+        getReal().display(user);
     }
 }
